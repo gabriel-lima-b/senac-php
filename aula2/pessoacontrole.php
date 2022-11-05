@@ -10,7 +10,6 @@ $p->setNome($_POST['txtnome']);
 $p->setIdade($_POST['txtidade']);
 
 //Mostrando os dados
-echo '<br> nome: '.$p->getNome().
-	 '<br> idade: '.$p->getIdade().	
-	 '<br> idade em meses: '.$p->calcularMeses();
-?>
+echo '<br> nome: ' . $p->getNome() .
+	'<br> idade: ' . $p->getIdade() .
+	'<br> idade em meses: ' . $p->calcularMeses();

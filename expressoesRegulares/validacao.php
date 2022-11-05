@@ -1,20 +1,19 @@
 <?php
-class Validacao{
-    public static function testaExpressaoRegular($expressao,$valor)
+class Validacao
+{
+    public static function testaExpressaoRegular($expressao, $valor)
     {
-        if(preg_match($expressao,$valor)){
+        if (preg_match($expressao, $valor)) {
             return "Valor validado com sucesso!";
         }
-        else{
+        else {
             return "Valor incorreto.";
         }
     }
-
-    
 }
 
-$expressao='/^[a-z]{2,5}$/';
-$valor = '5ag';
+$expressao = '/^[a-z]{2,5}$/';
+$valor = 'aaa';
 
-echo 'Resultado teste: '.Validacao::testaExpressaoRegular($expressao,$valor);
+echo 'Resultado teste: ' . Validacao::testaExpressaoRegular($expressao, $valor);
 ?>

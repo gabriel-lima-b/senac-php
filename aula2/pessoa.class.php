@@ -1,30 +1,35 @@
 <?php
-class Pessoa{
+class Pessoa
+{
 	//Atributos
 	private $nome;
 	private $idade;
 
 	//Métodoas Acessores
-	public function getNome(){
+	public function getNome()
+	{
 		return $this->nome;
-	}	
-
-	public function setNome($nome){
-		$this->nome	= $nome;
 	}
 
-	public function getIdade(){
+	public function setNome($nome)
+	{
+		$this->nome = $nome;
+	}
+
+	public function getIdade()
+	{
 		return $this->idade;
 	}
 
-	public function setIdade($idade){
-		$this->idade = $idade;	
+	public function setIdade($idade)
+	{
+		$this->idade = $idade;
 	}
 
 	//Método de Cálculo
-	public function calcularMeses(){
+	public function calcularMeses()
+	{
 		return $this->idade * 12;
-	}	//fecha calcularMeses
+	} //fecha calcularMeses
 
-}//fim da classe Pessoa
-?>
+} //fim da classe Pessoa
