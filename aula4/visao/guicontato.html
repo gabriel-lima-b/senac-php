@@ -1,40 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro Teste</title>
-  </head>
-  <body>
-      <fieldset>
-          <legend>Contato</legend>
+<html>
+	<head>
+		<title>Cadastro Teste</title>
+	</head>
+	<body>
+		<fieldset><legend>Contato</legend>
+			<form name="contato" id="contato" method="post" action="../controle/contatocontrole.php">
+				<label>Nome:
+					<input type="text" name="txtnome" id="txtnome">*
+				</label><br><br>
+				<label>Fone: 
+					<input type="text" name="txtfone" id="txtfone">*
+				</label><br><br>
+				<label>Email:
+					<input type="text" name="txtemail" id="txtemail">*
+				</label><br><br><br>
 
-          <form
-            action="controle/contatocontrole.php"
-            name="contato"
-            id="contato"
-            method="post"
-          >
-            <label for="txt-nome">
-              Nome:
-               <input type="text" name="txt-nome" id="txt-nome" />*
-              </br>
-            </label>
-            <label for="txt-fone">
-                Telefone:
-                <input type="text" name="txt-fone" id="txt-fone">*
-            </label>
-            <br>
-            <label for="txt-email">
-                Email:
-                  <input type="text" name="txt-email" id="txt-email">*
-            </label>
-            <br>
-            <br>
-            <input type="submit" name="btn-enviar" id="btn-enviar" value="Enviar">
-            <input type="reset" name="btn-limpar" id="btn-limpar" value="Limpar">
-          </form>
-      </fieldset>
-  </body>
+				<input type="submit" name="btnenviar" id="btnenviar" value="Enviar">
+				<input type="reset" name="btnlimpar" id="btnlimpar" value="Limpar">
+			</form>
+		</fieldset>	
+	</body>
 </html>

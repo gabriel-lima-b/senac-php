@@ -1,25 +1,34 @@
 <?php
-include_once '../modelo/contato.class.php';
-include_once '../util/validacao.class.php';
-include_once '../util/email.class.php';
+	/*Incluindo e avaliando o arquivo informado durante a execução do script
+	*/
+	include_once '../modelo/contato.class.php';
+	include_once '../util/validacao.class.php';
+	include_once '../util/email.class.php';
 
-$nome = $_POST['txt-nome'];
-$email = $_POST['txt-email'];
-$fone = $_POST['txt-fone'];
+	//Recebendo e armazenando os dados
+	$nome = $_POST['txtnome'];
+	$email = $_POST['txtemail'];
+	$fone = $_POST['txtfone'];
 
+	//Validando os dados recebidos
+	if( !Validacao::testarNome($nome)||
+		!Validacao::testarEmail($email)||
+		!Validacao::testarFone($fone) ){
 
-if (!Validacao::testarNome($nome) || !Validacao::testarEmail($email) || !Validacao::testarTelefone($fone)) {
-    header("location:../visao/guierro.php");
-}
-else {
-    $contatinho = new Contato($nome, $email, $fone);
+		header("location:../visao/guierro.php");
+	}else{
+		$c = new Contato($nome, $email, $fone);
 
-    $mensagem = "Nome: $contatinho->nome ### Email: $contatinho->email ### Telefone: $contatinho->telefone";
+		//Montando a mensagem que será  enviada por email
+		$mensagem = "Nome: $c->nome ### Email: $c->email ### Fone: $c->fone ";
 
-    $e = new Email($mensagem);
+		/*Instanciando objeto $e a partir da classe Email. Enviando  a mensagem pelo construtor*/
+		$e = new Email($mensagem);
 
-    $e->enviarEmail();
-    header("location:../visao/guiresposta.php?nome=$contatinho->nome&email=$contatinho->email&fone=$contatinho->telefone");
-}
+		//Chamando o método que enviará o email
+		$e->enviarEmail();
+
+		header("location:../visao/guiresposta.php?nome=$c->nome&email=$c->email&fone=$c->fone");
+	}
 
 ?>
