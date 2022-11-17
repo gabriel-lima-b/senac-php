@@ -28,7 +28,7 @@ class Usuario
 
     public function __toString()
     {
-        return '<br> Código: ' . $this->id .
+        return '<br> Código: ' . $this->idUsuario .
             '<br> Login: ' . $this->login .
             '<br> Senha: ' . $this->senha .
             '<br> Tipo: ' . $this->tipo;

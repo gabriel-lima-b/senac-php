@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Free CSS Templates
@@ -16,7 +18,7 @@ Released   : 20120915
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Aula7 - Conexão Banco sem Validação</title>
+    <title>Usuario Cadastrado!</title>
     <link
       href="http://fonts.googleapis.com/css?family=Oswald:400,300"
       rel="stylesheet"
@@ -39,7 +41,7 @@ Released   : 20120915
       <div id="header-wrapper">
         <div id="header" class="container">
           <div id="logo">
-            <h1><a href="#">Cadastro</a></h1>
+            <h1><a href="#">Site exemplo</a></h1>
           </div>
           <div id="menu">
             <ul>
@@ -48,9 +50,7 @@ Released   : 20120915
               </li>
               <li><a href="guicadusuario.html">Cadastro</a></li>
               <li>
-                <a href="../controle/usuariocontrole.php?op=consultar"
-                  >Consulta</a
-                >
+                <a href="../controle/usuariocontrole.php?op=consultar">Consulta</a>
               </li>
             </ul>
           </div>
@@ -72,41 +72,20 @@ Released   : 20120915
         <div id="content">
           <div class="post">
             <!-- InstanceBeginEditable name="conteúdo" -->
-            <h2 class="title">Cadastro de usuário</h2>
+            <h2 class="title">Pagina Resposta</h2>
 
-            <form
-              action="../controle/usuariocontrole.php?op=cadastrar"
-              method="post"
-              name="formcad"
-            >
-              <fieldset>
-                <legend>Cadastro de Usuário</legend>
-                <input
-                  type="text"
-                  name="txtlogin"
-                  id="txtlogin"
-                  placeholder="login"
-                /><br /><br />
+            <p>
+                <?php
+if (isset($_SESSION['usuario'])) {
+  include '../modelo/usuario.class.php';
+  $u = new Usuario();
+  $u = unserialize($_SESSION['usuario']);
+  echo 'Usuario cadastrado!';
+  echo '<br> Dados:' . $u;
+}
+?>
+            </p>
 
-                <input
-                  type="password"
-                  name="txtsenha"
-                  id="txtsenha"
-                  placeholder="senha"
-                />
-                <br />
-                <br />
-                <label>Tipo</label>
-                <select name="seltipo" id="seltipo">
-                  <option value="admin">admin</option>
-                  <option value="comum">comum</option>
-                </select>
-              </fieldset>
-              <fieldset>
-                <legend>Ações</legend>
-                <input type="submit" name="btn" id="btn" value="Cadastrar" />
-              </fieldset>
-            </form>
             <!-- InstanceEndEditable -->
           </div>
         </div>

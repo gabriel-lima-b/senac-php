@@ -5,7 +5,7 @@ include '..\persistencia\conexaobanco.class.php';
 class UsuarioDao
 {
     private $conexao = null;
-    private function __construct()
+    public function __construct()
     {
         $this->conexao = ConexaoBanco::getInstance();
     }
