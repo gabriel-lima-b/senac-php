@@ -13,15 +13,15 @@ switch ($_GET['op']) {
         ) {
             //TODO: validar as paradas
             $erros = array();
-            if (!Validacao::validaLogin($_POST['txtlogin'])
+            if (!Validacao::testarLogin($_POST['txtlogin'])
             ) {
                 $erros[] = 'login inválido.';
             }
-            if (!Validacao::validaSenha($_POST['txtsenha'])
+            if (!Validacao::testarSenha($_POST['txtsenha'])
             ) {
                 $erros[] = 'senha inválida.';
             }
-            if (!Validacao::validaTipo($_POST['seltipo'])
+            if (!Validacao::testarTipo($_POST['seltipo'])
             ) {
                 $erros[] = 'tipo inválido.';
             }
@@ -42,9 +42,9 @@ switch ($_GET['op']) {
                 header('location:../visao/guiresposta.php');
             }
             else {
-                $_SESSION['usuario'] = serialize($usuario);
+                $_SESSION['e'] = serialize($erros);
 
-                header('location:../visao/guiresposta.php');
+                header('location:../visao/guierro.php');
             }
         }
         else {

@@ -76,12 +76,12 @@ Released   : 20120915
 
             <p>
                 <?php
-if (isset($_SESSION['usuario'])) {
-  include '../modelo/usuario.class.php';
-  $u = new Usuario();
-  $u = unserialize($_SESSION['usuario']);
-  echo 'Usuario cadastrado!';
-  echo '<br> Dados:' . $u;
+if (isset($_SESSION['msg']) && isset($_SESSION['usuario'])) {
+  include "../modelo/usuario.class.php";
+  $usuario = new Usuario();
+  $usuario = unserialize($_SESSION['usuario']);
+
+  echo '<br>' . $_SESSION['msg'] . '<br> Dados: ' . $usuario;
 }
 ?>
             </p>
