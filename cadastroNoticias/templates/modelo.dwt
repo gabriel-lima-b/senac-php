@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <!-- TemplateBeginEditable name="doctitle" -->
+        <title>Site</title>
+        <!-- TemplateEndEditable -->
+<meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <link href="../estilo/estilo.css" rel="stylesheet" type="text/css" media="screen" />
+        <!-- TemplateBeginEditable name="head" -->
+        <!-- TemplateEndEditable -->
+    </head>
+    <body>
+
+
+        <div id="menu">
+            <ul>
+                <li id="button1"><a href="../index.php"  title="">Home</a></li>
+                <li id="button2"><a href="../Visao/GuiCadastroNoticia.php" title="">enviar noticia</a></li>
+                <li id="button3"><a href="../visao/GuiListaNoticia.php" title="">Busca de Noticias</a></li>
+                <li id="button4"><a href="#" title="">Sobre</a></li>
+                <li id="button5"><a href="#" title="">Contato</a></li>
+            </ul>
+        </div>
+        <div id="header">
+            <div id="logo">
+                <h1><a href="#" title="">Noticias</a></h1>
+            </div>
+        </div>
+
+        <div id="content">
+            <div id="main">
+            <div id="right">
+              <div id="menu_lateral">
+              
+              <h2>Menu</h2>
+                  <ul>
+                      <li class="noend"><a href="#" title="">Link</a></li>
+                      <li class="noend"><a href="#" title="">Outro link</a></li>
+                  </ul>
+              </div>
+
+             </div>
+             <div id="left"><!-- TemplateBeginEditable name="título do conteúdo" -->
+                     <h1>Exemplo de título</h1>
+                     <!-- TemplateEndEditable -->
+                     
+             		<div class="text">
+					<!-- TemplateBeginEditable name="Conteudo" -->
+                    
+                    <p>Exemplo de texto.<br />
+	                <a href="#">Exemplo de link.</a><br />
+                  	</p>
+					
+					<!-- TemplateEndEditable -->	
+                	</div>
+              </div>
+
+            </div>
+            <div id="conbot"></div> <!--detalhe -->
+        </div>
+
+        <div id="footer">
+            <p>Linguagem de Programação Visual I - PHP - Prof. Thiago Cury</p>
+            <p>Template de Metamorphosis Design<a href="http://www.flashtemplatesdesign.com/" title="Free Flash Templates"></a> - &quot;Contrast&quot;</p>
+    </div>
+
+    </body>
+</html>

@@ -25,5 +25,17 @@ class UsuarioDao{
 			echo'Erro ao cadastrar usuário';
 		}//fecha o catch
 	}//fecha o método cadastrarUsuario
+
+	public function buscarUsuarios(){
+		try{
+			$stat = $this->conexao->query("select * from usuario");
+			$array = array();
+			$array = $stat->fetchAll(PDO::FETCH_CLASS,'Usuario');
+			$this->conexao = null;
+			return $array;
+		}catch(PDOException $e){
+			echo'Erro ao buscar usuário!'.$e;
+		}//fecha o catch
+	}//fecha p método buscarUsuarios
 }//fecha a classe
 ?>

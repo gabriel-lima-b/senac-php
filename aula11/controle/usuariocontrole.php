@@ -1,66 +1,85 @@
 <?php
 session_start();
-include '../modelo/usuario.class.php';
-include '../util/validacao.class.php';
-include '../dao/usuariodao.class.php';
+session_unset(); //Removendo as sessões anteriores
 
-switch ($_GET['op']) {
-    case 'cadastrar':
+include_once'../modelo/usuario.class.php';
+include_once'../util/validacao.class.php';
+include_once'../dao/usuariodao.class.php';
 
-        if (isset($_POST['txtlogin'])
-        && isset($_POST['txtsenha'])
-        && isset($_POST['seltipo'])
-        ) {
-            //TODO: validar as paradas
-            $erros = array();
-            if (!Validacao::testarLogin($_POST['txtlogin'])
-            ) {
-                $erros[] = 'login inválido.';
-            }
-            if (!Validacao::testarSenha($_POST['txtsenha'])
-            ) {
-                $erros[] = 'senha inválida.';
-            }
-            if (!Validacao::testarTipo($_POST['seltipo'])
-            ) {
-                $erros[] = 'tipo inválido.';
-            }
-            if (count($erros) == 0) {
-                //Cadastro com validação
-                $usuario = new Usuario();
-                $usuario->login = $_POST['txtlogin'];
-                $usuario->senha = $_POST['txtsenha'];
-                $usuario->tipo = $_POST['seltipo'];
+if(isset($_GET['op'])){
+	switch($_GET['op']){
 
-                //Enviando o objeto para o bd
-                $usuarioDao = new UsuarioDAO();
-                $usuarioDao->cadastrarUsuario($usuario);
+		case 'cadastrar':
+			//Cadastro COM Validação, verificando se existem as variáveis de post
+			if( isset($_POST['txtlogin']) &&
+				isset($_POST['txtsenha']) &&
+				isset($_POST['seltipo']) ) {
 
-                $_SESSION['msg'] = 'Usuário Cadastrado!';
-                $_SESSION['usuario'] = serialize($usuario);
+				//Criando as variáveis para receber os valor do Array
+				$login = $_POST['txtlogin'];
+				$senha = $_POST['txtsenha'];
+				$tipo  = $_POST['seltipo'];
+				//Fazendo a validação
+				$erros = array();
 
-                header('location:../visao/guiresposta.php');
-            }
-            else {
-                $_SESSION['e'] = serialize($erros);
+				if(!Validacao::testarLogin($login)){
+					$erros[] = 'Login inválido!';
+				}
 
-                header('location:../visao/guierro.php');
-            }
-        }
-        else {
-            echo 'Variáveis inválidas!';
-        }
+				if(!Validacao::testarSenha($senha)){
+					$erros[] = 'Senha inválida!';
+				}
 
+				if(!Validacao::testarTipo($tipo)){
+					$erros[] = 'Tipo inválido!';
+				}
 
-        break;
+				if( count($erros) == 0 ){
 
-    case 'buscar':
-        # code...
-        break;
+					$u = new Usuario();
 
-    default:
-        echo 'ERRO NO SWITCH';
-        break;
-}
+					$u->login = $login;
+					$u->senha = $senha;
+					$u->tipo  = $tipo;
 
+					//Enviando o objeto $u para o banco de dados
+					$uDAO = new UsuarioDAO();
+
+					$uDAO->cadastrarUsuario($u);
+
+					$_SESSION['msg'] = 'Usuário Cadastrado!';
+					$_SESSION['usuario'] = serialize($u);
+
+					header("location:../visao/guiresposta.php");
+				}else{
+					$_SESSION['e'] = serialize($erros);
+
+					header("location:../visao/guierro.php");
+				}//fim if count
+
+			}else{
+				echo 'Variáveis Inválidas!';
+			}//fecha o if isset
+
+			break;
+
+		case 'consultar':
+			
+			//Criando o objeto do tipo DAO´para fazer consulta no banco
+			$uDAO = new UsuarioDAO();
+			$array = array();
+			$array = $uDAO->buscarUsuarios();
+
+			//Levar as informações para o GUIconsUsuario para mostrar na tela.
+			$_SESSION['usuarios'] = serialize($array);
+			header("location:../visao/guiconsusuario.php");
+
+			break;//fecha case buscar
+
+		default: //echo 'Erro no switch';
+			break;//fecha o default
+	}//fecha o switch
+}else{
+	echo'Variável op não existe!';
+}//fecha else ISSET op
 ?>

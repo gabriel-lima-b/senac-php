@@ -18,7 +18,7 @@ Released   : 20120915
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Aula7 - Conexão com Banco COM Validação</title>
+<title>Aula11 - Consulta no Banco COM Validação</title>
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 <link href="../estilos/style.css" rel="stylesheet" type="text/css" media="screen" />
@@ -28,7 +28,7 @@ Released   : 20120915
 	<div id="header-wrapper">
 		<div id="header" class="container">
 			<div id="logo">
-				<h1><a href="#">Site exemplo</a></h1>
+				<h1><a href="#">Consulta</a></h1>
 			</div>
 			<div id="menu">
 				<ul>
@@ -49,22 +49,24 @@ Released   : 20120915
         
 		  <div class="post">
 				<!-- InstanceBeginEditable name="conteúdo" -->
-		<h2 class="title">Pagina Resposta</h2>
+		<h2 class="title">Consulta de usuários</h2>
+
 		<p>
 			<?php
-				if( isset($_SESSION['msg']) &&
-					isset($_SESSION['usuario']) ){
-					
-					include'../modelo/usuario.class.php';
-					$u = new Usuario();
-					$u = unserialize( $_SESSION['usuario']);
+				if(isset($_SESSION['usuarios']) ){
+					include_once'../modelo/usuario.class.php';
+					$usu = array();
+					$usu = unserialize($_SESSION['usuarios']);
 
-					echo'<br>'.$_SESSION['msg'].
-						'<br> Dados: '.$u;
-				}//fecha o if
+					//Imprimindo toString da classe Usuario
+					foreach ($usu as $u) {
+						echo'<br>'.$u;
+					}
+				}else{
+					echo 'Variável usuários não existe!';
+				}//fecha o else isset usuarios
 			?>
 		</p>
-		
 				<!-- InstanceEndEditable -->
 
 			</div>
