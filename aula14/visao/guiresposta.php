@@ -1,5 +1,5 @@
 <?php
-session_start();
+	session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
@@ -32,7 +32,7 @@ Released   : 20120915
 			</div>
 			<div id="menu">
 				<ul>
-					<li class="current_page_item"><a href="../index.php">Homepage</a></li>
+					<li class="current_page_item"><a href="../index.html">Homepage</a></li>
 					<li><a href="guicadusuario.html">Cadastro</a></li>
 					<li><a href="../controle/usuariocontrole.php?op=consultar">Consulta</a></li>
 					<li><a href="guidelusuario.html">Excluir</a></li>
@@ -53,17 +53,17 @@ Released   : 20120915
 		<h2 class="title">Pagina Resposta</h2>
 		<p>
 			<?php
-if (isset($_SESSION['msg']) &&
-isset($_SESSION['usuario'])) {
+				if( isset($_SESSION['msg']) &&
+					isset($_SESSION['usuario']) ){
+					
+					include'../modelo/usuario.class.php';
+					$u = new Usuario();
+					$u = unserialize( $_SESSION['usuario']);
 
-	include '../modelo/usuario.class.php';
-	$u = new Usuario();
-	$u = unserialize($_SESSION['usuario']);
-
-	echo '<br>' . $_SESSION['msg'] .
-		'<br> Dados: ' . $u;
-} //fecha o if
-?>
+					echo'<br>'.$_SESSION['msg'].
+						'<br> Dados: '.$u;
+				}//fecha o if
+			?>
 		</p>
 		
 				<!-- InstanceEndEditable -->

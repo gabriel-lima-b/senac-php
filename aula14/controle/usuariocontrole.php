@@ -5,7 +5,6 @@ session_unset(); //Removendo as sessões anteriores
 include_once '../modelo/usuario.class.php';
 include_once '../util/validacao.class.php';
 include_once '../dao/usuariodao.class.php';
-include_once '../util/controlelogin.class.php';
 
 if (isset($_GET['op'])) {
 	switch ($_GET['op']) {
@@ -149,7 +148,6 @@ if (isset($_GET['op'])) {
 					$usuarios = array();
 
 					if ($_POST['rdfiltro'] == 'idusuario') {
-						$query = 'where idusuario = ' . $_POST['txtfiltro'];
 					}
 					else if ($_POST['rdfiltro'] == 'login') {
 						$query = "where login = \"" . $_POST['txtfiltro'] . '"';
@@ -166,11 +164,12 @@ if (isset($_GET['op'])) {
 
 		case 'alterar':
 			if (isset($_GET['idUsuario'])) {
+
 				$query = 'where idusuario = ' . $_GET['idUsuario'];
-				$uDAO = new UsuarioDao();
+				$uDAO = new UsuarioDAO();
 				$usuarios = array();
 				$usuarios = $uDAO->buscar($query);
-				$_SESSION['usuario'] = serialize($usuarios);
+				$_SESSION['usuarios'] = serialize($usuarios);
 				header('location:../visao/guialterar.php');
 			}
 			else {
@@ -179,48 +178,52 @@ if (isset($_GET['op'])) {
 			break;
 
 		case 'confirmalterar':
-			if (isset($_POST['txtidusuario']) && isset($_POST['txtlogin']) && isset($_POST['txtsenha']) && isset($_POST['seltipo'])) {
+			if (isset($_POST['txtidusuario']) &&
+			isset($_POST['txtlogin']) &&
+			isset($_POST['txtsenha']) &&
+			isset($_POST['seltipo'])) {
+
 				$idUsuario = $_POST['txtidusuario'];
 				$login = $_POST['txtlogin'];
 				$senha = $_POST['txtsenha'];
 				$tipo = $_POST['seltipo'];
-
 				$erros = array();
 
 				if (!Validacao::testarLogin($login))
 					$erros[] = 'Login inválido!';
-
-
-				if (!Validacao::testarSenha($_POST['txtsenha']))
-					$erros[] = 'Senha inválido!';
-
-
-				if (!Validacao::testarTipo($_POST['$tipo']))
+				if (!Validacao::testarSenha($senha))
+					$erros[] = 'Senha inválida!';
+				if (!Validacao::testarTipo($tipo))
 					$erros[] = 'Tipo inválido!';
 
 				if (count($erros) == 0) {
 					$u = new Usuario();
 					$u->idUsuario = $idUsuario;
+					$u->login = $login;
 					$u->senha = $senha;
 					$u->tipo = $tipo;
 
-					$uDAO = new UsuarioDao();
+					$uDAO = new UsuarioDAO();
+					//Enviando para o método alterarUsuario
 					$uDAO->alterarUsuario($u);
 					$_SESSION['u'] = serialize($u);
 					header("location:../controle/usuariocontrole.php?op=consultar");
 				}
 				else {
 					$_SESSION['erros'] = serialize($erros);
-					header('location:../visao/guierro.php');
-				}
+					header("location:../visao/guierro.php");
+				} //fecha o else count do array
+
 			}
 			else {
-				echo 'Não existem variáveis!';
-			}
+				echo 'Variáveis não existem!';
+			} //fecha else isset
+
 			break;
 
+
 		default:
-			echo 'Deu Erro no switch';
+			echo 'Deu erro!';
 			break; //fecha o default
 	} //fecha o switch
 }

@@ -1,6 +1,3 @@
-<?php
-	session_start();
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Free CSS Templates
@@ -18,7 +15,7 @@ Released   : 20120915
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Aula7 - Conexão com Banco COM Validação</title>
+<title>Aula 12 - Excluir</title>
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 <link href="../estilos/style.css" rel="stylesheet" type="text/css" media="screen" />
@@ -32,10 +29,8 @@ Released   : 20120915
 			</div>
 			<div id="menu">
 				<ul>
-					<li class="current_page_item"><a href="../index.html">Homepage</a></li>
+					<li class="current_page_item"><a href="../index.php">Homepage</a></li>
 					<li><a href="guicadusuario.html">Cadastro</a></li>
-					<li><a href="../controle/usuariocontrole.php?op=consultar">Consulta</a></li>
-					<li><a href="guidelusuario.html">Excluir</a></li>
 				</ul>
 			</div>
 		</div>
@@ -50,20 +45,16 @@ Released   : 20120915
         
 		  <div class="post">
 				<!-- InstanceBeginEditable name="conteúdo" -->
-		<h2 class="title">Pagina Erro</h2>
-		<p>
-			<?php
-				if( isset($_SESSION['e']) ){
-					$erros = array();
-					$erros = unserialize($_SESSION['e']);
+		<h2 class="title">Exclusao de usuário</h2>
+		<form name="exc" id="exc" method="post" action="../controle/usuariocontrole.php?op=deletar">
+			<fieldset><legend>Excluir</legend>
+				<label>Digite o código:
+					<input type="text" name="idUsuario" id="idUsuario">*
+				</label><br>
 
-					foreach($erros as $e) {
-						echo'<br>'.$e;
-					}//fim foreach
-
-				}//fecha o if
-			?>
-		</p>
+				<input type="submit" name="btnexcluir" id="btnexcluir" value="Excluir">
+			</fieldset>
+		</form>
 		
 				<!-- InstanceEndEditable -->
 

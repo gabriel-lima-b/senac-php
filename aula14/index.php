@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php
+	session_start();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Free CSS Templates
@@ -16,7 +18,7 @@ Released   : 20120915
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Aula 12 - Excluir</title>
+<title>Aula 14 - Cadastra Busca Filtra Altera Exclui</title>
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 <link href="estilos/style.css" rel="stylesheet" type="text/css" media="screen" />
@@ -31,8 +33,8 @@ Released   : 20120915
 			<div id="menu">
 				<ul>
 					<li class="current_page_item"><a href="index.php">Homepage</a></li>
-					<li><a href="visao/guicadusuario.html">Cadastro</a></li>
-
+					<li><a href="visao/guicadusuario.php">Cadastro</a></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -48,52 +50,51 @@ Released   : 20120915
 		  <div class="post">
 				<!-- InstanceBeginEditable name="conteúdo" -->
 		<h2 class="title">Pagina Inicial</h2>
-<?php
-if (isset($_SESSION['privateUser'])) {
-	include_once 'modelo/usuario.class.php';
-	$usu = new Usuario();
-	$usu = unserialize($_SESSION['privateUser']);
+		<?php
+			if(isset($_SESSION['privateUser']) ){
+				include_once 'modelo/usuario.class.php';
+				$usu = new Usuario();
+				$usu = unserialize($_SESSION['privateUser']);
 
-	echo '<p> Olá, ' . $usu->login . '<br>' . 'Seja bem vindo!</p>';
-
-}
-?>
+				echo'<p>Olá, '.$usu->login.'<br>'.
+				'Seja Bem Vindo!</p>';
+			}//fecha o if
+		?>
 		
 				<!-- InstanceEndEditable -->
 
 			</div>
 		</div>
 		<!-- end #content -->
+		
 		<div id="sidebar">
-		<?php
-if (!isset($_SESSION['privateUser'])) {
-?>
-		<form name="login" id="login" method="post" action="controle/usuariocontrole.php?op=logar">
-			<input type="text" name="txtlogin" id="txtlogin" placeholder="login">
-			<br>
-			<input type="password" name="txtsenha" placeholder="senha">
-			<br>
-			<input type="submit" name="btnlogar" id="btnlogar" value="Logar">
-		</form>
-		<?php
-}
-else {
-?>
+			<?php
+				if(!isset($_SESSION['privateUser'])){
+			?>
+
+			<form name="login" id="login" method="post" action="controle/usuariocontrole.php?op=logar">
+				<input type="text" name="txtlogin" id="txtlogin" placeholder="login"><br>
+				<input type="password" name="txtsenha" placeholder="senha"><br>
+
+				<input type="submit" name="btnlogar" id="btnlogar" value="Logar">				
+			</form>
+			<?php
+				}else{
+			?>
 			<ul>
 				<li>
 					<h2>Links privados</h2>
 					<ul>
 						<li><a href="controle/usuariocontrole.php?op=consultar">Consulta</a></li>
-						<li><a href="visao/guidelusuario.html">Excluir</a></li>
+						<li><a href="visao/guidelusuario.php">Excluir</a></li>
 						<li><a href="visao/guibuscausuario.php">Busca Avançada</a></li>
 						<li><a href="controle/usuariocontrole.php?op=deslogar">Deslogar</a></li>
 					</ul>
 				</li>
 			</ul>
-
 			<?php
-}
-?>
+				}
+			?>
 		</div>
 		<!-- end #sidebar -->
 		<div style="clear: both;">&nbsp;</div>

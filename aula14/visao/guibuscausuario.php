@@ -1,5 +1,5 @@
 <?php
-session_start();
+	session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
@@ -33,7 +33,7 @@ Released   : 20120915
 			<div id="menu">
 				<ul>
 					<li class="current_page_item"><a href="../index.php">Homepage</a></li>
-					<li><a href="guicadusuario.html">Cadastro</a></li>
+					<li><a href="guicadusuario.php">Cadastro</a></li>
 
 				</ul>
 			</div>
@@ -86,7 +86,8 @@ Released   : 20120915
 		
 		<div id="sidebar">
 <?php
-if (!isset($_SESSION['privateUser'])) {
+	if(!isset($_SESSION['privateUser']))
+	{
 ?>
 		<form name="login" id="login" method="post" action="../controle/usuariocontrole.php?op=logar">
 			<input type="text" name="txtlogin" id="txtlogin" placeholder="login"><br>
@@ -94,22 +95,22 @@ if (!isset($_SESSION['privateUser'])) {
 			<input type="submit" name="btnlogar" id="btnlogar" value="Logar">
 		</form>
 <?php
-}
-else {
+	}else
+	{
 ?>
 		<ul>
 			<li>
 				<h2>Links privados</h2>
 				<ul>
 					<li><a href="../controle/usuariocontrole.php?op=consultar">Consultar</a></li>
-					<li><a href="guidelusuario.html">Excluir</a></li>
+					<li><a href="guidelusuario.php">Excluir</a></li>
 					<li><a href="guibuscausuario.php">Busca Avançada</a></li>
 					<li><a href="../controle/usuariocontrole.php?op=deslogar">Deslogar</a></li>
 				</ul>
 			</li>
 		</ul>
 <?php
-}
+	}
 ?>
 		</div>
 		<!-- end #sidebar -->

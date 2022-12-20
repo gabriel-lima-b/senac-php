@@ -1,5 +1,5 @@
 <?php
-session_start();
+	session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
@@ -33,7 +33,8 @@ Released   : 20120915
 			<div id="menu">
 				<ul>
 					<li class="current_page_item"><a href="../index.php">Homepage</a></li>
-					<li><a href="guicadusuario.html">Cadastro</a></li>
+					<li><a href="guicadusuario.php">Cadastro</a></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -48,20 +49,20 @@ Released   : 20120915
         
 		  <div class="post">
 				<!-- InstanceBeginEditable name="conteúdo" -->
-		<h2 class="title">Alterar de usuário</h2>
+		<h2 class="title">Alteração de usuário</h2>
 
 <?php
-if (isset($_SESSION['usuarios'])) {
-	include_once '../modelo/usuario.class.php';
+	if(isset($_SESSION['usuarios']) )
+	{
+		include_once'../modelo/usuario.class.php';
 
-	$usuario = array();
-	$usuario = unserialize($_SESSION['usuarios']);
+		$usuario = array();
+		$usuario = unserialize($_SESSION['usuarios']);
 
 
-}
-else {
-	echo 'Usuários não existe!';
-}
+	}else{
+		echo 'Usuários não existe!';
+	}
 ?>
 
 	<form name="cad" id="cad" action="../controle/usuariocontrole.php?op=confirmaalterar" method="post">
@@ -82,17 +83,18 @@ else {
 			<label>Tipo
 			<select name="seltipo" id="seltipo">
 			<?php
-if ($usuario[0]->tipo == 'adm') {
-	echo '<option value="adm" selected="selected">adm</option>';
-	echo '<option value="visitante">visitante</option>';
-}
-else {
-	echo '<option value="adm">adm</option>';
-	echo '<option value="visitante" selected="selected">visitante</option>';
-}
+				if($usuario[0]->tipo == 'adm')
+				{
+					echo '<option value="adm" selected="selected">adm</option>'; 
+					echo '<option value="visitante">visitante</option>';
+				}else
+				{
+					echo '<option value="adm">adm</option>'; 
+					echo '<option value="visitante" selected="selected">visitante</option>';
+				}
 
-unset($_SESSION['usuarios']);
-?></label><br>
+				unset($_SESSION['usuarios']);
+			?></label><br>
 				</select>	
 			</fieldset>
 
@@ -110,7 +112,8 @@ unset($_SESSION['usuarios']);
 		
 		<div id="sidebar">
 <?php
-if (!isset($_SESSION['privateUser'])) {
+	if(!isset($_SESSION['privateUser']))
+	{
 ?>
 		<form name="login" id="login" method="post" action="../controle/usuariocontrole.php?op=logar">
 			<input type="text" name="txtlogin" id="txtlogin" placeholder="login"><br>
@@ -118,8 +121,8 @@ if (!isset($_SESSION['privateUser'])) {
 			<input type="submit" name="btnlogar" id="btnlogar" value="Logar">
 		</form>
 <?php
-}
-else {
+	}else
+	{
 ?>
 		<ul>
 			<li>
@@ -133,7 +136,7 @@ else {
 			</li>
 		</ul>
 <?php
-}
+	}
 ?>
 		</div>
 		<!-- end #sidebar -->

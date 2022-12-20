@@ -1,5 +1,7 @@
 <?php
-session_start();
+	session_start();
+	include_once'../util/controlelogin.class.php';
+	ControleLogin::verificarAcesso();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
@@ -33,9 +35,8 @@ Released   : 20120915
 			<div id="menu">
 				<ul>
 					<li class="current_page_item"><a href="../index.php">Homepage</a></li>
-					<li><a href="guicadusuario.html">Cadastro</a></li>
-					<li><a href="../controle/usuariocontrole.php?op=consultar">Consulta</a></li>
-					<li><a href="guidelusuario.html">Excluir</a></li>
+					<li><a href="guicadusuario.php">Cadastro</a></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -54,22 +55,55 @@ Released   : 20120915
 
 		<p>
 			<?php
-if (isset($_SESSION['usuarios'])) {
-	include_once '../modelo/usuario.class.php';
-	$usu = array();
-	$usu = unserialize($_SESSION['usuarios']);
+				if(isset($_SESSION['usuarios']) ){
+					include_once'../modelo/usuario.class.php';
+					$usu = array();
+					$usu = unserialize($_SESSION['usuarios']);
+			?>
+					<table summary="Tabela de usuários" border="1">
+						<caption>Usuários</caption>
+						<thead>
+							<tr>
+								<th>Código</th>
+								<th>Login</th>
+								<th>Senha</th>
+								<th>Tipo</th>
+								<th>Alterar</th>
+							</tr>
+						</thead>
 
+						<tfoot>
+							<tr>
+								<th>Código</th>
+								<th>Login</th>
+								<th>Senha</th>
+								<th>Tipo</th>
+								<th>Alterar</th>
+							</tr>
+						</tfoot>
 
-
-	//Imprimindo toString da classe Usuario
-	foreach ($usu as $u) {
-		echo '<br>' . $u;
-	}
-}
-else {
-	echo 'Variável usuários não existe!';
-} //fecha o else isset usuarios
-?>
+					//Imprimindo toString da classe Usuario
+			<tbody>		
+			<?php
+					foreach ($usu as $u) {
+						echo'<tr>';
+						echo "<td>
+						<a href='../controle/usuariocontrole.php?op=deletar&idUsuario=$u->idUsuario'>$u->idUsuario </a> </td>";
+						echo'<td>'.$u->login.'</td>';
+						echo'<td>*********</td>';
+						echo'<td>'.$u->tipo.'</td>';
+						echo"<td> <a href='../controle/usuariocontrole.php?op=alterar&idUsuario=$u->idUsuario'>Alterar</a> </td>";
+						echo'</tr>';
+					}//fecha a foreach
+					unset($_SESSION['usuarios']);
+			?>
+			</tbody>
+			</table>
+			<?php		
+				}else{
+					echo 'Variável usuários não existe!';
+				}//fecha o else isset usuarios
+			?>
 		</p>
 				<!-- InstanceEndEditable -->
 
@@ -80,13 +114,12 @@ else {
 		<div id="sidebar">
 			<ul>
 				<li>
-				<h2>Links privados</h2>
-				<ul>
-					<li><a href="../controle/usuariocontrole.php?op=consultar">Consultar</a></li>
-					<li><a href="guidelusuario.html">Excluir</a></li>
-					<li><a href="guibuscausuario.php">Busca Avançada</a></li>
-					<li><a href="../controle/usuariocontrole.php?op=deslogar">Deslogar</a></li>
-				</ul>
+					<h2>Categorias</h2>
+					<ul>
+						<li><a href="#">link 1</a></li>
+						<li><a href="#">link 2</a></li>
+						<li><a href="#">link 3</a></li>
+					</ul>
 				</li>
 			</ul>
 		</div>

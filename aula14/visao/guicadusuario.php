@@ -1,5 +1,5 @@
 <?php
-	session_start();
+session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
@@ -18,7 +18,7 @@ Released   : 20120915
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Aula7 - Conexão com Banco COM Validação</title>
+<title>Aula7 - Conexão Banco COM Validação</title>
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 <link href="../estilos/style.css" rel="stylesheet" type="text/css" media="screen" />
@@ -28,14 +28,13 @@ Released   : 20120915
 	<div id="header-wrapper">
 		<div id="header" class="container">
 			<div id="logo">
-				<h1><a href="#">Site exemplo</a></h1>
+				<h1><a href="#">Cadastro</a></h1>
 			</div>
 			<div id="menu">
 				<ul>
-					<li class="current_page_item"><a href="../index.html">Homepage</a></li>
-					<li><a href="guicadusuario.html">Cadastro</a></li>
-					<li><a href="../controle/usuariocontrole.php?op=consultar">Consulta</a></li>
-					<li><a href="guidelusuario.html">Excluir</a></li>
+					<li class="current_page_item"><a href="../index.php">Homepage</a></li>
+					<li><a href="guicadusuario.php">Cadastro</a></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -50,21 +49,24 @@ Released   : 20120915
         
 		  <div class="post">
 				<!-- InstanceBeginEditable name="conteúdo" -->
-		<h2 class="title">Pagina Erro</h2>
-		<p>
-			<?php
-				if( isset($_SESSION['e']) ){
-					$erros = array();
-					$erros = unserialize($_SESSION['e']);
+		<h2 class="title">Cadastro de usuário</h2>
 
-					foreach($erros as $e) {
-						echo'<br>'.$e;
-					}//fim foreach
+		<form action="../controle/usuariocontrole.php?op=cadastrar" method="post" name="formcad">
+			<fieldset><legend>Cadastro de Usuário</legend>
+				<input type="text" name="txtlogin" id="txtlogin" placeholder="login"><br><br>
 
-				}//fecha o if
-			?>
-		</p>
-		
+				<input type="password" name="txtsenha" id="txtsenha" placeholder="senha"><br><br>
+				<label>Tipo</label>
+				<select name="seltipo" id="seltipo">
+					<option value="admin">admin</option>
+					<option value="visitante">visitante</option>
+				</select>	
+			</fieldset>
+			<br>
+			<fieldset><legend>Ações</legend>
+				<input type="submit" name="btn" id="btn" value="Cadastrar">
+			</fieldset>
+		</form>
 				<!-- InstanceEndEditable -->
 
 			</div>
@@ -72,18 +74,34 @@ Released   : 20120915
 		<!-- end #content -->
 		
 		<div id="sidebar">
+			<?php
+if (!isset($_SESSION['privateUser'])) {
+?>
+
+			<form name="login" id="login" method="post" action="controle/usuariocontrole.php?op=logar">
+				<input type="text" name="txtlogin" id="txtlogin" placeholder="login"><br>
+				<input type="password" name="txtsenha" placeholder="senha"><br>
+
+				<input type="submit" name="btnlogar" id="btnlogar" value="Logar">				
+			</form>
+			<?php
+}
+else {
+?>
 			<ul>
 				<li>
-					<h2>Categorias</h2>
+					<h2>Links privados</h2>
 					<ul>
-						<li><a href="#">link 1</a></li>
-						<li><a href="#">link 2</a></li>
-						<li><a href="#">link 3</a></li>
+						<li><a href="controle/usuariocontrole.php?op=consultar">Consulta</a></li>
+						<li><a href="visao/guidelusuario.php">Excluir</a></li>
+						<li><a href="visao/guibuscausuario.php">Busca Avançada</a></li>
+						<li><a href="controle/usuariocontrole.php?op=deslogar">Deslogar</a></li>
 					</ul>
 				</li>
 			</ul>
-		</div>
-		<!-- end #sidebar -->
+			<?php
+}
+?>
 		<div style="clear: both;">&nbsp;</div>
 	</div>
 	<!-- end #page --> 
