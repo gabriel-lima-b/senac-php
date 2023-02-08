@@ -1,109 +1,61 @@
 <?php
-	session_start();
+session_start();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
+<html lang="en">
 
-Name       : Keyboard 
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20120915
-
--->
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="Templates/modelo.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Aula 14 - Cadastra Busca Filtra Altera Exclui</title>
-<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-<link href="estilos/style.css" rel="stylesheet" type="text/css" media="screen" />
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Trabalho final</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+	<link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-<div id="wrapper">
-	<div id="header-wrapper">
-		<div id="header" class="container">
-			<div id="logo">
-				<h1><a href="#">Site exemplo</a></h1>
-			</div>
-			<div id="menu">
-				<ul>
-					<li class="current_page_item"><a href="index.php">Homepage</a></li>
-					<li><a href="visao/guicadusuario.php">Cadastro</a></li>
-					
-				</ul>
-			</div>
-		</div>
-		<div id="banner">
-			<div class="content"><img src="imagens/img02.jpg" width="1000" height="300" alt="teclado"></div>
-		</div>
-	</div>
-	<!-- end #header -->
-	
-	<div id="page">
-		<div id="content">
-        
-		  <div class="post">
-				<!-- InstanceBeginEditable name="conteúdo" -->
-		<h2 class="title">Pagina Inicial</h2>
-		<?php
-			if(isset($_SESSION['privateUser']) ){
-				include_once 'modelo/usuario.class.php';
-				$usu = new Usuario();
-				$usu = unserialize($_SESSION['privateUser']);
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+		<a class="navbar-brand" href="index.html">
 
-				echo'<p>Olá, '.$usu->login.'<br>'.
-				'Seja Bem Vindo!</p>';
-			}//fecha o if
-		?>
-		
-				<!-- InstanceEndEditable -->
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-			</div>
-		</div>
-		<!-- end #content -->
-		
-		<div id="sidebar">
-			<?php
-				if(!isset($_SESSION['privateUser'])){
-			?>
-
-			<form name="login" id="login" method="post" action="controle/usuariocontrole.php?op=logar">
-				<input type="text" name="txtlogin" id="txtlogin" placeholder="login"><br>
-				<input type="password" name="txtsenha" placeholder="senha"><br>
-
-				<input type="submit" name="btnlogar" id="btnlogar" value="Logar">				
-			</form>
-			<?php
-				}else{
-			?>
-			<ul>
-				<li>
-					<h2>Links privados</h2>
-					<ul>
-						<li><a href="controle/usuariocontrole.php?op=consultar">Consulta</a></li>
-						<li><a href="visao/guidelusuario.php">Excluir</a></li>
-						<li><a href="visao/guibuscausuario.php">Busca Avançada</a></li>
-						<li><a href="controle/usuariocontrole.php?op=deslogar">Deslogar</a></li>
-					</ul>
+		<div class="collapse navbar-collapse ml-2" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="visao/guicadlivro.php">Cadastrar Livro</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="controle/livrocontrole.php?op=listar">Listar Livros</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="visao/guidellivro.php">Deletar Livro</a>
 				</li>
 			</ul>
-			<?php
-				}
-			?>
 		</div>
-		<!-- end #sidebar -->
-		<div style="clear: both;">&nbsp;</div>
+	</nav>
+
+	<div container>
+		<div class="row">
+			<div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+				<h1>Livraria</h1>
+				<img src="imagens/img_index.jpg" class="img-fluid" alt="Responsive image">
+			</div>
+		</div>
 	</div>
-	<!-- end #page --> 
-</div>
-<div id="footer">
-	<p>Copyright (c) 2022 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org">FCT</a>. Photos by <a href="http://fotogrph.com/">Fotogrph</a>.</p>
-</div>
-<!-- end #footer -->
+
 </body>
-<!-- InstanceEnd --></html>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+	$(".popover-dismiss").popover({
+		trigger: "focus",
+	});
+</script>
+
+</html>

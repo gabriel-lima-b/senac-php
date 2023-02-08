@@ -8,7 +8,7 @@ class LivrosDao
 	public function __construct()
 	{
 		$this->conexao = ConexaoBanco::getInstancia();
-	} 
+	}
 
 	public function cadastrarLivro($l)
 	{
@@ -21,9 +21,7 @@ class LivrosDao
 			$stat->execute();
 
 			$this->conexao = null;
-
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e) {
 			echo 'Erro ao cadastrar livro';
 		}
 	}
@@ -36,11 +34,10 @@ class LivrosDao
 			$array = $stat->fetchAll(PDO::FETCH_CLASS, 'Livro');
 			$this->conexao = null;
 			return $array;
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e) {
 			echo 'Erro ao buscar livros!' . $e;
 		}
-	} 
+	}
 
 	public function deletarLivro($idLivro)
 	{
@@ -52,44 +49,39 @@ class LivrosDao
 			$stat->execute();
 
 			$stat->conexao = null;
-
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e) {
 			echo 'Erro ao deletar Livro!';
 		}
 	}
 
-	public function buscarLivroById($l)
+	public function buscarLivroById($id)
 	{
 		try {
-			$stat = $this->conexao->query("select * from livros where id='$l->id'");
+			$stat = $this->conexao->query("select * from livros where id='$id'");
 
 			$livro = $stat->fetchObject('Livro');
 			return $livro;
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e) {
 			echo 'Erro ao buscar o livro!';
-		} 
-	} 
+		}
+	}
 
 
 	public function alterarLivro($livro)
 	{
 		try {
-			$stat = $this->conexao->prepare('update livro set titulo = ?, autor = ?, where idusuario = ?');
+			$stat = $this->conexao->prepare('update livros set titulo = ?, autor = ? where id = ?');
 
 			$stat->bindValue(1, $livro->titulo);
 			$stat->bindValue(2, $livro->autor);
-			$stat->bindValue(4, $livro->idLivro);
+			$stat->bindValue(3, $livro->id);
+
+			var_dump($stat);
 
 			$stat->execute();
 			$this->conexao = null;
-
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e) {
 			echo 'Erro ao alterar o livro';
-		} 
-	} 
-
-} 
-?>
+		}
+	}
+}

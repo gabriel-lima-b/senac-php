@@ -3,25 +3,27 @@ session_start();
 session_unset(); //Removendo as sessões anteriores
 
 include_once '../modelo/livro.class.php';
-include_once '../dao/livrodao.class.php';
+include_once '../dao/livrosdao.class.php';
 
 if (isset($_GET['op'])) {
 	switch ($_GET['op']) {
 
 		case 'cadastrar':
-			if (isset($_POST['txttitulo']) &&
-			isset($_POST['txtautor'])) {
+			if (
+				isset($_POST['txttitulo']) &&
+				isset($_POST['txtautor'])
+			) {
 
 				$titulo = $_POST['txttitulo'];
-				$autor = $_POST['txtsenha'];
+				$autor = $_POST['txtautor'];
 
 				$livro = new Livro();
 
 				$livro->titulo = $titulo;
 				$livro->autor = $autor;
-				
 
-					
+
+
 				$lDAO = new LivrosDao();
 
 				$lDAO->cadastrarLivro($livro);
@@ -29,10 +31,8 @@ if (isset($_GET['op'])) {
 				$_SESSION['msg'] = 'Livro Cadastrado!';
 				$_SESSION['livro'] = serialize($livro);
 
-				header("location:../visao/guiresposta.php");
-
-			}
-			else {
+				header("location:./livrocontrole.php?op=listar");
+			} else {
 				echo 'Variáveis Inválidas!';
 			} //fecha o if isset
 
@@ -46,9 +46,9 @@ if (isset($_GET['op'])) {
 
 			$_SESSION['livros'] = serialize($array);
 			//TODO: trocar para visao livros
-			header("location:../visao/guiconsusuario.php");
+			header("location:../visao/guilistalivro.php");
 
-			break; 
+			break;
 
 		case 'deletar':
 			if (isset($_REQUEST['idLivro'])) {
@@ -56,33 +56,58 @@ if (isset($_GET['op'])) {
 				$lDAO = new LivrosDAO();
 				$lDAO->deletarLivro($_REQUEST['idLivro']);
 
-				header('location:../controle/livrocontrole.php?op=listar');
-			}
-			else {
+				header('location:./livrocontrole.php?op=listar');
+			} else {
 				echo 'id do livro não existe!';
 			}
 			break; //fecha case deletar
 
+
+
 		case 'alterar':
 			if (isset($_POST['idLivro'])) {
 
-				$lDAO = new LivroDAO();
+				$lDAO = new LivrosDAO();
 				$livro = new Livro();
-				$livro = $lDAO->alterarLivro($_POST['idLivro']);
+				$livro = $lDAO->buscarLivroById($_POST['idLivro']);
 				$_SESSION['livro'] = serialize($livro);
-				header('location:../controle/livrocontrole.php?op=listar');
-			}
-			else {
+				header('location:../visao/guialteralivro.php');
+			} else {
 				echo 'Não existem variáveis!';
 			}
 			break;
 
+		case 'confirmalterar':
+			if (
+				isset($_POST['txtidlivro']) &&
+				isset($_POST['txttitulo']) &&
+				isset($_POST['txtautor'])
+			) {
+
+				$idLivro = $_POST['txtidlivro'];
+				$titulo = $_POST['txttitulo'];
+				$autor = $_POST['txtautor'];
+				$l = new Livro();
+				$l->id = $idLivro;
+				$l->titulo = $titulo;
+				$l->autor = $autor;
+
+				$lDAO = new LivrosDao();
+
+				$lDAO->alterarLivro($l);
+				header("location:./livrocontrole.php?op=listar");
+			} else {
+				echo 'Variáveis não existem!';
+			}
+
+			break;
+
+
+
 		default:
-			echo 'Deu erro!';
-			break; 
+			echo 'Deu erro no switch!';
+			break;
 	}
-}
-else {
+} else {
 	echo 'Variável op não existe!';
-} 
-?>
+}

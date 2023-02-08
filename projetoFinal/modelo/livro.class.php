@@ -1,7 +1,7 @@
 <?php
 class Livro{
 	//Atributos
-	private $idLivro;
+	private $id;
 	private $titulo;
 	private $autor;
 
@@ -23,9 +23,8 @@ class Livro{
 	}
 
 	public function __toString(){
-		return  '<br> id: '.$this->idLivro.
+		return  '<br> id: '.$this->id.
 				'<br> titulo: '.$this->titulo.
 				'<br> autor: '.$this->autor;
 	}//fecha o toString
 }//fecha a classe livro
-?>
